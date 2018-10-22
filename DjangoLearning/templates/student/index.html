@@ -35,12 +35,11 @@
             {% endifequal %}
         {% endfor %}
 
-        {% if next_page < page_num %}
+        {% if next_page <= page_num %}
         <li><a href="?p={{next_page}}">下一页</a></li>
         {% endif %}
     </ul>
     {% endif %}
-
 
 
 
