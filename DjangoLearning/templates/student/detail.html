@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>面板</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<h3>详情页</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">学生编号：{{student.id}}</div>
+    <div class="panel-body">
+        姓名：{{student.student_name}}<br/>
+        性别：{{student.student_sex}}<br/>
+        年龄：{{student.student_age}}<br/>
+	</div>
+</div>
+
+<div class="comment-list-panel">
+
+    <h3>评论列表，共 <span>{{ student.comment_set.count }}</span> 条评论</h3>
+    <ul class="list-group">
+    {% for comment in comment_list %}
+        <li  class="list-group-item">{{ comment.comment_content }}</li>
+    {% empty %}
+    <li class="list-group-item">暂无评论</li>
+    {% endfor %}
+    </ul>
+
+</div>
+
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>

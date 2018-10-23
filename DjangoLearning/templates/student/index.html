@@ -10,35 +10,30 @@
 </head>
 <body>
 <h3>学生列表</h3>
-    {% if student_list %}
     <ul class="list-group">
     {% for item in student_list %}
-        <li  class="list-group-item"><a href="">{{ item.student_name }}</a></li>
+        <li  class="list-group-item"><a href="{{item.id}}/detail">{{ item.student_name }}</a></li>
+    {% empty %}
+    <li class="list-group-item">无数据</li>
     {% endfor %}
     </ul>
-    {% else %}
-        <p>No data.</p>
-    {% endif %}
 
-    {% if page_list  %}
-    <ul class="pagination pagination-sm">
-
-        {% if pre_page > 0 %}
-        <li><a href="?p={{pre_page}}">上一页</a></li>
+    {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}"><span>上一页</span></a></li>
         {% endif %}
-
-        {% for item in page_list %}
-            {% ifequal item  current_page %}
-            <li class="active"><a>{{item}}</a></li>
-            {% else %}
-            <li><a href="?p={{item}}">{{item}}</a></li>
-            {% endifequal %}
+        {% for i in page_list %}
+          {% if page_obj.number == i %}
+            <li class="active"><a>{{ i }}</a></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
         {% endfor %}
-
-        {% if next_page <= page_num %}
-        <li><a href="?p={{next_page}}">下一页</a></li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a href="?page={{ page_obj.next_page_number }}"><span>下一页</span></a></li>
         {% endif %}
-    </ul>
+      </ul>
     {% endif %}
 
 
