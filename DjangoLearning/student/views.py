@@ -1,6 +1,9 @@
 from .models import *
+import json
+from django.shortcuts import *
 from django.views import generic
 from django.core.paginator import Paginator
+from django.http import HttpResponseBadRequest, JsonResponse
 
 class IndexView(generic.ListView):
     model = Student
@@ -9,7 +12,6 @@ class IndexView(generic.ListView):
     paginate_by = 4
 
     # def get_queryset(self):
-        # self.current_page = int(self.request.GET.get('p', 1))
         # students = self.paginator.page(self.current_page)
         # return students
         # return Student.objects.order_by('-student_age')[:]
@@ -54,16 +56,15 @@ class IndexView(generic.ListView):
         page_data = {'page_list': page_list}
         return page_data
 
-
 class DetailView(generic.DetailView):
     model = Student
     template_name = 'student/detail.html'
     context_object_name = 'student'
 
-    def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        comment_list = self.object.comment_set.all()
-        context.update({
-            'comment_list': comment_list
-        })
-        return context
+def comment(request):
+    if not request.is_ajax():
+        return HttpResponseBadRequest()
+    studentid = request.GET.get('studentId')
+    comments = Comment.objects.filter(student_id__exact=studentid).values()  # values() 转为字典
+    json_list = list(comments)
+    return JsonResponse(json_list, safe=False)

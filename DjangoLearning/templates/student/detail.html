@@ -2,8 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {% load staticfiles %}
 <title>面板</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/dropload.css' %}">
 </head>
 <body>
 
@@ -21,17 +23,72 @@
 <div class="comment-list-panel">
 
     <h3>评论列表，共 <span>{{ student.comment_set.count }}</span> 条评论</h3>
-    <ul class="list-group">
-    {% for comment in comment_list %}
-        <li  class="list-group-item">{{ comment.comment_content }}</li>
-    {% empty %}
-    <li class="list-group-item">暂无评论</li>
-    {% endfor %}
-    </ul>
+    <div class="comment-wrap">
+        <ul class="list-group">
+        <!--{% for comment in comment_list %}-->
+            <!--<li  class="list-group-item">{{ comment.comment_content }}</li>-->
+        <!--{% empty %}-->
+        <!--<li class="list-group-item">暂无评论</li>-->
+        <!--{% endfor %}-->
+        </ul>
+    </div>
 
 </div>
 
-  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="{% static 'js/dropload.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+$(function(){
+    // 页数
+    var page = 0;
+    // 每页展示5个
+    var size = 10;
+
+    // dropload
+    $('.comment-wrap').dropload({
+        scrollArea : window,
+        loadDownFn : function(me){
+            page++;
+
+            var result = '';
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/student/comment?studentId={{student.id}}',
+                dataType: 'json',
+                success: function(data){
+                    var arrLen = data.length;
+                    if(arrLen > 0){
+                        for(var i=0; i<arrLen; i++){
+                            result +=   '<li class="list-group-item">'+data[i].comment_content+'。我是第'+page+'页</li>';
+                        }
+                    // 如果没有数据
+                    }else{
+                        // 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                    }
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        // 插入数据到页面，放到最后面
+                        $('.list-group').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    // alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+        }
+    });
+});
+</script>
+
 </body>
 </html>
