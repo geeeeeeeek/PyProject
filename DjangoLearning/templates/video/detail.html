@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link href="http://imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.css" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<div class="ui unstackable two column grid">
+    <div class=" ten wide column">
+        <video class="video" autoplay="autoplay" muted="" controls="controls">
+            <source src="http://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div class="video-info">
+            <div class="video-title">让美国人选出最帅的中国男明星，结果居然是他</div>
+            <div class="video-view-count">100次观看</div>
+            <div class="ui divider"></div>
+        </div>
+        {% include "video/comment.html" %}
+    </div>
+    <div class="six wide column">
+        {% include "video/recommend.html" %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="http://imgcache.qq.com/open/qcloud/video/tcplayer/lib/hls.min.0.8.8.js"></script>
+<script src="http://imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script>
+{% endblock javascript %}
+ 

@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="基于Django的视频点播网站">
+    <title>{% block title %}视点{% endblock title %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=14333">
+    {% block css %}{% endblock css %}
+</head>
+<body>
+
+{% include "video/header.html" %}
+
+<div class="ui container" id="v-content">
+    {% block content %}
+    <p>我是内容</p>
+    {% endblock content %}
+</div>
+
+{% include "video/footer.html" %}
+
+{% block javascript %}
+{% endblock javascript %}
+
+{% block modal %}
+{% endblock modal %}
+
+</body>
+</html>
