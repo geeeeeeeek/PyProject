@@ -7,8 +7,8 @@
     <title>{% block title %}视点{% endblock title %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=14333">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}?v=13">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=132">
     {% block css %}{% endblock css %}
 </head>
 <body>
@@ -23,6 +23,12 @@
 
 {% include "video/footer.html" %}
 
+<script type="text/javascript" src="https://semantic-ui.com/javascript/library/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'css/Semantic-UI-CSS/semantic.js' %}"></script>
+<script  type="text/javascript" >
+//header头像点击dropdown
+$('#v-header-avatar').dropdown();
+</script>
 {% block javascript %}
 {% endblock javascript %}
 

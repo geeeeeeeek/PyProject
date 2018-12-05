@@ -19,7 +19,8 @@
                 注册账户
             </div>
         </h2>
-        <form class="ui large form">
+        <form class="ui large form" method="post" action="{% url 'video:register' %}">
+            {% csrf_token %}
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
@@ -30,7 +31,7 @@
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="请输入密码">
+                        <input type="password" name="password" placeholder="请输入密码(不低于6位字符)">
                     </div>
                 </div>
                 <div class="field">

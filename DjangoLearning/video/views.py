@@ -11,3 +11,21 @@ def login(request):
 
 def register(request):
     return render(request, 'video/register.html')
+
+def logout(request):
+    return HttpResponse("logout success")
+
+def profile(request):
+    return render(request, 'video/profile.html')
+
+def settings(request):
+    return render(request, 'video/settings.html')
+
+def account_setting(request):
+    return render(request, 'video/account_setting.html')
+
+def bookmarks(request):
+    return render(request, 'video/bookmarks.html')
+
+def like_videos(request):
+    return render(request, 'video/like_videos.html')

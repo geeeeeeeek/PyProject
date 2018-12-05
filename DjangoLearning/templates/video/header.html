@@ -2,7 +2,7 @@
 
 <div class="ui sticky fixed  menu">
     <div class="ui container">
-        <a href="#" class="borderless header item">
+        <a href="{% url 'video:index' %}" class="borderless header item">
             <img class="logo" src="{% static 'img/logo.png' %}">
             视点
         </a>
@@ -11,7 +11,39 @@
                 <input class="prompt" type="text" placeholder="发现视频">
                 <i class="search icon"></i>
             </div>
-            <button class="ui tiny secondary basic button">登录</button>
+            <a class="ui tiny secondary basic button" id="v-header-login" href="{% url 'video:login' %}">登录</a>
+            <div class="ui inline dropdown" id="v-header-avatar" style="">
+                <div class="" style="display:inline-block;font-weight:bold;">
+                    <img class="ui avatar image"
+                         src="https://upload.jianshu.io/users/upload_avatars/1111229/70cfaf7f-5b14-4294-ae25-6d762529bde6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
+                    山东好汉
+                </div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">
+                        <i class="user icon"></i>
+                        <a href="{% url 'video:profile' %}" class="color-black">个人资料</a>
+                    </div>
+                    <div class="item">
+                        <i class="bookmark icon"></i>
+                        <a href="{% url 'video:bookmarks' %}" class="color-black">我的收藏</a>
+                    </div>
+                    <div class="item">
+                        <i class="heart icon"></i>
+                        <a href="{% url 'video:like_videos' %}" class="color-black">我的喜欢</a>
+                    </div>
+                    <div class="item">
+                        <i class="setting icon"></i>
+                        <a href="{% url 'video:settings' %}" class="color-black">设置</a>
+                    </div>
+                    <div class="item">
+                        <i class="sign-out icon"></i>
+                        <a href="{% url 'video:logout' %}" class="color-black">退出</a>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>

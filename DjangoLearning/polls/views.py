@@ -14,7 +14,7 @@ class IndexView(generic.ListView):
     # output = ', '.join([q.question_text for q in latest_question_list])
     # return HttpResponse(output)
 
-    template_name = 'polls/index.html'
+    template_name = 'polls/admin_base.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):

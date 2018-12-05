@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h3 class="ui header">我的喜欢</h3>
+<div class="ui unstackable items">
+  <div class="item">
+    <div class="ui tiny image">
+      <img src="http://e.hiphotos.baidu.com/image/pic/item/9e3df8dcd100baa1f9fef1e94a10b912c9fc2e95.jpg">
+    </div>
+    <div class="middle aligned content">
+      <a class="header">12 Years a Slave</a>
+    </div>
+  </div>
+  <div class="item">
+    <div class="ui tiny image">
+      <img src="http://e.hiphotos.baidu.com/image/pic/item/9e3df8dcd100baa1f9fef1e94a10b912c9fc2e95.jpg">
+    </div>
+    <div class="middle aligned content">
+      <a class="header">My Neighbor Totoro</a>
+    </div>
+  </div>
+  <div class="item">
+    <div class="ui tiny image">
+      <img src="http://e.hiphotos.baidu.com/image/pic/item/9e3df8dcd100baa1f9fef1e94a10b912c9fc2e95.jpg">
+    </div>
+    <div class="middle aligned content">
+      <a class="header">Watchmen</a>
+    </div>
+  </div> 
+</div>
+<div class="video-page">
+    <div class="ui borderless pagination menu">
+        <a class="item"><i class="left arrow icon"></i></a></a>
+        <a class="item">1</a>
+        <a class="item">2</a>
+        <a class="item">3</a>
+        <a class="item">4</a>
+        <a class="active item">5</a>
+        <a class="item">6</a>
+        <a class="item">7</a>
+        <a class="item">8</a>
+        <a class="item">9</a>
+        <a class="item">10</a>
+        <a class="item"><i class="icon right arrow"></i></a>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script  type="text/javascript" >
+$('.ui .dropdown').dropdown();
+</script>
+{% endblock javascript %}
+

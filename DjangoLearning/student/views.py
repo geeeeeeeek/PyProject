@@ -7,7 +7,7 @@ from django.http import HttpResponseBadRequest, JsonResponse
 
 class IndexView(generic.ListView):
     model = Student
-    template_name = 'student/index.html'
+    template_name = 'student/admin_base.html'
     context_object_name = 'student_list'
     paginate_by = 4
 

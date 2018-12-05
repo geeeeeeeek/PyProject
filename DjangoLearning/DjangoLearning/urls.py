@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path('student/', include('student.urls')),
-    path('video/',include('video.urls'))
+    path('video/',include('video.urls')),
+    path('myadmin/', include('myadmin.urls'))
 ]

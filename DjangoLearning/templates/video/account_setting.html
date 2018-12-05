@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="v-settings">
+  <div class="ui two column grid ">
+     <div class="four wide column">
+      <div class="ui secondary vertical pointing menu">
+            <a class="link item" href="{% url 'video:profile' %}">
+                <i class="grey user icon"></i>
+                <span class="v-nav-title">个人资料</span>
+            </a>
+            <a class="link item" href="{% url 'video:settings' %}">
+                <i class="grey cog icon"></i>
+                <span class="v-nav-title">设置</span>
+            </a>
+            <a class="active link item"  href="{% url 'video:account_setting' %}">
+                <i class="grey bell icon"></i>
+                <span class="v-nav-title">账号管理</span>
+            </a>
+      </div>
+     </div>
+     <div class="twelve wide column">
+      <div class="v-settings-content">
+
+        <form class="ui form">
+            <!--todo -->
+            <div class="sixteen wide inline field v-form-field">
+                <label>邮件订阅</label>
+                <div class="ui toggle checkbox">
+                  <input type="checkbox" name="public">
+                  <label> </label>
+                </div>
+            </div>
+            <div class="sixteen wide inline field v-form-field">
+                <label>是否订阅</label>
+                <div class="ui toggle checkbox">
+                  <input type="checkbox" name="public">
+                  <label> </label>
+                </div>
+            </div>
+
+            <button class="ui primary button" type="submit">保存</button>
+        </form>
+      </div>
+     </div>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script  type="text/javascript" >
+$('.ui .dropdown').dropdown();
+</script>
+{% endblock javascript %}
+

@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load video_tag %}
+
+{% block content %}
+
+<h3 class="ui header">视频</h3>
+<div class="ui grid">
+
+    {% for item in video_list %}
+    <div class="four wide column">
+        <div class="ui card">
+            <a class="image" href="{% url 'video:detail' %}">
+                <img src="http://p99.pstatp.com/origin/pgc-image/153890009639632cf84f7ac">
+                <i class="large play icon v-play-icon"></i>
+            </a>
+            <div class="content">
+                <a class="header" href="{% url 'video:detail' %}">{{ item.title }}</a>
+                <div class="meta">
+                    <span class="date">发布于{{ item.create_time|time_since}}</span>
+                </div>
+                <div class="description">
+                    {{ item.view_count}}次观看
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h3>暂无数据</h3>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="video-page">
+    <div class="ui borderless pagination menu">
+        {% if page_obj.has_previous %}
+        <a class="item" href="?page={{ page_obj.previous_page_number }}"><i class="left arrow icon"></i></a></a>
+        {% endif %}
+        {% for i in page_list %}
+        {% if page_obj.number == i %}
+        <a class="active item">{{ i }}</a>
+        {% else %}
+        <a class="item" href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <a class="item" href="?page={{ page_obj.next_page_number }}"><i class="icon right arrow"></i></a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static '/css/Semantic-UI-CSS/semantic.min.js' %}"></script>
+{% endblock javascript %}

@@ -1,0 +1,130 @@
+{% extends 'myadmin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h1 class="ui huge header six wide column">
+            我是标题
+        </h1>
+        <div class="v-title-extra ten wide column">
+            <div class="ui action input v-admin-search">
+                <input type="text" placeholder="Search...">
+                <button class="ui small button">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <table class="ui unstackable single line striped selectable table">
+            <thead>
+            <tr>
+                <th> #</th>
+                <th> Header</th>
+                <th> Header</th>
+                <th> Header</th>
+                <th> Header</th>
+                <th> 操作</th>
+            </tr>
+            </thead>
+            <tbody class="video-list">
+            <tr video-id="1">
+                <td> 1,001</td>
+                <td> Lorem</td>
+                <td> ipsum</td>
+                <td> dolor</td>
+                <td> sit</td>
+                <td>
+                    <button class="ui primary button video-edit">
+                        编辑
+                    </button>
+                    <button class="ui button video-delete">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            <tr video-id="2">
+                <td> 1,001</td>
+                <td> Lorem</td>
+                <td> ipsum</td>
+                <td> dolor</td>
+                <td> sit</td>
+                <td>
+                    <button class="ui primary button video-edit">
+                        编辑
+                    </button>
+                    <button class="ui button video-delete">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    <div class="ui right floated pagination menu">
+                        <a class="icon item">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <a class="item">1</a>
+                        <a class="item">2</a>
+                        <a class="item">3</a>
+                        <a class="item">4</a>
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+<!--- 删除模态框 -->
+<div class="ui tiny modal delete">
+    <div class="header">
+        删除视频
+    </div>
+    <div class="image content">
+        <div class="description">
+            确认删除该条视频？
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui primary approve  button">确认</div>
+        <div class="ui deny button">取消</div>
+    </div>
+</div>
+
+<!--- 编辑模态框 -->
+<div class="ui tiny modal edit">
+    <div class="header">
+        编辑
+    </div>
+    <div class="content">
+        <form class="ui form">
+            <div class="field">
+                <label>姓名</label>
+                <input type="text" name="name" placeholder="">
+            </div>
+            <div class="field">
+                <label>密码</label>
+                <input type="text" name="pwd" placeholder="">
+            </div>
+            <div class="ui primary approve button">
+                保存
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock modal %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/video-list.js' %}"></script>
+{% endblock javascript %}
