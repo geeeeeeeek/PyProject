@@ -57,6 +57,12 @@ ROOT_URLCONF = 'VideoProject.urls'
 
 AUTH_USER_MODEL = 'users.User'
 
+LOGIN_URL = '/users/login'
+
+LOGIN_REDIRECT_URL = '/video/index'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

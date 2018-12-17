@@ -8,6 +8,14 @@ body {
     color:#000000;
 }
 
+.cursor{
+    cursor: pointer;
+}
+
+.n{
+    display:none;
+}
+
 .fl{
     float:left;
 }
@@ -121,7 +129,12 @@ body {
 }
 
 .video-view-count{
-    margin-top: 20px;
+    margin-top: 16px;
+    color: #888888;
+}
+
+.video-view-operation{
+    margin-top: 16px;
     color: #888888;
 }
 

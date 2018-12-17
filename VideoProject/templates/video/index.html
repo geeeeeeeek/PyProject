@@ -10,12 +10,12 @@
     {% for item in video_list %}
     <div class="four wide column">
         <div class="ui card">
-            <a class="image" href="{% url 'video:detail' %}">
+            <a class="image" href="{% url 'video:detail' item.pk %}">
                 <img src="http://p99.pstatp.com/origin/pgc-image/153890009639632cf84f7ac">
                 <i class="large play icon v-play-icon"></i>
             </a>
             <div class="content">
-                <a class="header" href="{% url 'video:detail' %}">{{ item.title }}</a>
+                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>
                 <div class="meta">
                     <span class="date">发布于{{ item.create_time|time_since}}</span>
                 </div>

@@ -21,7 +21,7 @@
                 </div>
                 <i class="dropdown icon"></i>
                 <div class="menu">
-                    <div class="item" onclick="window.location='{% url 'users:profile' %}';">
+                    <div class="item" onclick="window.location='{% url 'users:profile' user.pk %}';">
                         <i class="user icon"></i>
                         <span>个人资料</span>
                     </div>

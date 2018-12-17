@@ -1,0 +1,18 @@
+{% load video_tag %}
+
+{% for item in comments %}
+    <div class="comment">
+        <a class="avatar">
+            <img src="https://semantic-ui.com/images/avatar/small/jenny.jpg">
+        </a>
+        <div class="content">
+            <a class="author">{{ item.nickname }}</a>
+            <div class="metadata">
+                <span class="date">{{ item.timestamp|time_since }}</span>
+            </div>
+            <div class="text">
+                {{ item.content }}
+            </div>
+        </div>
+    </div>
+{% endfor %}

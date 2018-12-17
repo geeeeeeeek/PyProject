@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from video import views
+from django.conf.urls import url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('video/',include('video.urls')),
     path('myadmin/', include('myadmin.urls')),
     path('users/',include('users.urls')),
+    path('comment/',include('comment.urls')),
     path('', views.IndexView.as_view(), name='home'), # 默认首页
+
 ]

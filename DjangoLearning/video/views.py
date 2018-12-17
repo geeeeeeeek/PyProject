@@ -10,7 +10,7 @@ def login(request):
     return render(request, 'video/login.html')
 
 def register(request):
-    return render(request, 'video/register.html')
+    return render(request, 'video/signup.html')
 
 def logout(request):
     return HttpResponse("logout success")
