@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'sorl.thumbnail',
     'video',
     'users',
     'myadmin',
@@ -60,6 +61,10 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login'
 
 LOGIN_REDIRECT_URL = '/video/index'
+
+# 文件上传路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
+MEDIA_URL = '/upload/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 

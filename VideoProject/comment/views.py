@@ -14,7 +14,7 @@ from ratelimit.decorators import ratelimit
 def submit_comment(request,pk):
     was_limited = getattr(request, 'limited', False)
     if was_limited:
-        return JsonResponse({"code": 1, 'msg': '评论太频繁了'})
+        return JsonResponse({"code": 1, 'msg': '评论太频繁了，请1分钟后再试'})
         pass
     video = get_object_or_404(Video, pk = pk)
     form = CommentForm(data=request.POST)

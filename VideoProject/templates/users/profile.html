@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-
+{% load thumbnail %}
 {% block content %}
 
 
@@ -31,12 +31,15 @@
                     <div class="sixteen wide inline field v-form-field">
                         <label>头像</label>
                         <div class="v-inline-middle">
-                            <label for="file">
-                                <img class="ui mini circular image"
-                                     src="https://upload.jianshu.io/users/upload_avatars/1111229/70cfaf7f-5b14-4294-ae25-6d762529bde6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp">
+                            <label for="id_avatar">
+                                {% thumbnail user.avatar "200x200" crop="center" as im %}
+                                  <img class="ui mini circular image" src="{{ im.url }}">
+                                {% empty %}
+                                {% endthumbnail %}
                             </label>
-                            <input style="display:none;" id="file" type="file" name="myfile">
+                            {{form.avatar}}
                         </div>
+                        <span id="file_is_choose" class="n">文件已选择</span>
                     </div>
 
                     <div class="sixteen wide inline field v-form-field">
@@ -83,10 +86,17 @@
 
 {% block javascript %}
 <script type="text/javascript">
-$('.ui .dropdown').dropdown();
 
 
+$(function(){
 
+    $('.ui .dropdown').dropdown();
+
+    $("#id_avatar").change(function(){
+        $("#file_is_choose").show()
+    });
+
+});
 
 </script>
 {% endblock javascript %}

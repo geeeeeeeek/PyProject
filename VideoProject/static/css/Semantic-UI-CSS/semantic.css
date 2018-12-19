@@ -14415,8 +14415,9 @@ img.ui.bordered.image {
   transition: opacity 0.3s ease;
 }
 
+／*--------修改 pointer-events:none--------*／
 .ui.icon.input > i.icon:not(.link) {
-  pointer-events: none;
+
 }
 
 .ui.icon.input > input {

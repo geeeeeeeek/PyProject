@@ -1,16 +1,15 @@
+from VideoProject.helpers import get_page_data, ajax_required
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.shortcuts import *
-from django.views import generic
-from VideoProject.helpers import get_page_data, ajax_required, ajax_login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import *
+from django.template.loader import render_to_string
+from django.views import generic
 from django.views.decorators.http import require_http_methods
 
-from django.template.loader import render_to_string
-from django.http import HttpResponseBadRequest, JsonResponse
-from .models import Video
-from comment.models import Comment
 from .forms import CommentForm
+from .models import Video
 
 
 @login_required(login_url='/users/login')
@@ -78,10 +77,11 @@ class VideoDetailView(generic.DetailView):
         context.update(form_data)
         return context
 
-@login_required
 @ajax_required
 @require_http_methods(["POST"])
 def like(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"code": 1, "msg": "请先登录"})
     video_id = request.POST['video_id']
     video = Video.objects.get(pk=video_id)
     user = request.user
@@ -89,10 +89,11 @@ def like(request):
     return JsonResponse({"code": 0, "likes": video.count_likers(), "user_liked": video.user_liked(user)})
 
 
-@login_required
 @ajax_required
 @require_http_methods(["POST"])
 def collect(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"code": 1, "msg": "请先登录"})
     video_id = request.POST['video_id']
     video = Video.objects.get(pk=video_id)
     user = request.user
@@ -100,18 +101,17 @@ def collect(request):
     return JsonResponse({"code": 0, "collects": video.count_collecters(), "user_collected": video.user_collected(user)})
 
 
-# todo 今晚整理代码
 def get_comments(request):
     if not request.is_ajax():
         return HttpResponseBadRequest()
     page = request.GET.get('page')
+    page_size = request.GET.get('page_size')
     video_id = request.GET.get('video_id')
     video = get_object_or_404(Video, pk=video_id)
     comments = video.comment_set.order_by('-timestamp').all()
     comment_count = len(comments)
-    print(comment_count)
 
-    paginator = Paginator(comments, 15)
+    paginator = Paginator(comments, page_size)
     try:
         rows = paginator.page(page)
     except PageNotAnInteger:

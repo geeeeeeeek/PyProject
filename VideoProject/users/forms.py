@@ -11,6 +11,7 @@ class ProfileForm(forms.ModelForm):
                                    'min_length': '昵称不能多于20个字符',
                                },
                                widget=forms.TextInput())
+    avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class' : 'n'}))
     email = forms.EmailField(required=False,
                              error_messages={
                                  'invalid': '请输入有效的Email地址',
@@ -28,7 +29,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['nickname', 'email', 'gender', 'mobile']
+        fields = ['nickname', 'avatar', 'email', 'gender', 'mobile']
 
 
 class UserLoginForm(AuthenticationForm):

@@ -9,7 +9,7 @@
         <div class="v-header-extra">
             <div class="ui small icon input v-video-search">
                 <input class="prompt" value="{{ q }}" type="text" placeholder="搜索视频" id="v-search">
-                <i class="search icon" onclick="window.location='{% url 'video:search_result' %}';"></i>
+                <i class="search icon" style="cursor:pointer;" onclick="window.location='{% url 'video:search_result' %}?q='+$('#v-search').val();"></i>
             </div>
 
             {% if user.is_authenticated %}

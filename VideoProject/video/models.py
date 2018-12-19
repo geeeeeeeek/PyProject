@@ -28,9 +28,6 @@ class Video(models.Model):
     def count_likers(self):
         return self.liked.count()
 
-    def get_likers(self):
-        return self.liked.all()
-
     def user_liked(self, user):
         if user in self.liked.all():
             return 0
@@ -46,9 +43,6 @@ class Video(models.Model):
 
     def count_collecters(self):
         return self.collected.count()
-
-    def get_collecters(self):
-        return self.collected.all()
 
     def user_collected(self, user):
         if user in self.collected.all():

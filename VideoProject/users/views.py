@@ -2,8 +2,8 @@ from VideoProject.helpers import AuthorRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import *
 from django.views import generic
 
