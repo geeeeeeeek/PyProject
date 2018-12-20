@@ -10,9 +10,9 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('change_password/', views.change_password, name='change_password'),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
-    path('settings', views.settings, name='settings'),
-    path('account_setting', views.account_setting, name='account_setting'),
-    path('bookmarks', views.bookmarks, name='bookmarks'),
-    path('like_videos', views.like_videos, name='like_videos'),
+    path('subscribe/<int:pk>/', views.SubscribeView.as_view(), name='subscribe'),
+    path('feedback/', views.FeedbackView.as_view(), name='feedback'),
+    path('collect_videos/<int:pk>/', views.CollectListView.as_view(), name='collect_videos'),
+    path('like_videos/<int:pk>', views.LikeListView.as_view(), name='like_videos'),
 
 ]

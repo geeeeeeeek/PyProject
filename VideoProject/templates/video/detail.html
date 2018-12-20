@@ -22,7 +22,7 @@
                     <span id="like-count">{{ video.count_likers }}</span>
                 </span>
                 <span class="right floated star">
-                    <i class="star {%  user_collected_class video user %}  icon cursor" id="star"
+                    <i class="bookmark {%  user_collected_class video user %}  icon cursor" id="star"
                        video-id="{{ video.id }}"></i>
                     <span id="collect-count">{{ video.count_collecters }}</span>
                 </span>
@@ -56,6 +56,7 @@
     </div>
     <div class="six wide column">
         {% include "video/recommend.html" %}
+        {% include "video/ad.html" %}
     </div>
 </div>
 {% endblock content %}
@@ -63,7 +64,7 @@
 {% block javascript %}
 
 <script>
-var comments_url = "{% url 'video:get_comments' %}"
+var comments_url = "{% url 'comment:get_comments' %}"
 var video_id = {{ video.id }}
 </script>
 

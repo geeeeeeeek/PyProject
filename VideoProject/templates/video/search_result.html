@@ -12,9 +12,9 @@
           <img src="http://e.hiphotos.baidu.com/image/pic/item/9e3df8dcd100baa1f9fef1e94a10b912c9fc2e95.jpg">
         </div>
         <div class="middle aligned content">
-          <a class="header">{{ item.title }}</a>
+          <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>
         </div>
-      </div>
+    </div>
     {% empty %}
     <h3>暂无数据</h3>
     {% endfor %}

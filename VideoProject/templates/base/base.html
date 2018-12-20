@@ -6,8 +6,8 @@
     <title>视点</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}?v=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=13333">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Semantic-UI-CSS/semantic.css' %}?v=">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?v=">
     {% block css %}{% endblock css %}
 </head>
 <body>
@@ -24,7 +24,7 @@
 <script>
     var search_url = "{% url 'video:search_result' %}"
 </script>
-<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/header.js' %}?"></script>
 
 {% block javascript %}
 {% endblock javascript %}

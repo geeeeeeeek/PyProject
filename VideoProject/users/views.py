@@ -1,4 +1,4 @@
-from VideoProject.helpers import AuthorRequiredMixin
+from helpers import AuthorRequiredMixin, get_page_data
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth import get_user_model
@@ -6,8 +6,11 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import *
 from django.views import generic
+from ratelimit.decorators import ratelimit
 
-from .forms import ProfileForm, SignUpForm, UserLoginForm, ChangePwdForm
+from .models import Feedback
+
+from .forms import ProfileForm, SignUpForm, UserLoginForm, ChangePwdForm, SubscribeForm, FeedbackForm
 
 User = get_user_model()
 
@@ -75,22 +78,72 @@ class ProfileView(LoginRequiredMixin,AuthorRequiredMixin, generic.UpdateView):
     form_class = ProfileForm
     template_name = 'users/profile.html'
 
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        return response
-
     def get_success_url(self):
         messages.success(self.request, "保存成功")
         return reverse('users:profile', kwargs={'pk': self.request.user.pk})
 
-def settings(request):
-    return render(request, 'users/settings.html')
 
-def account_setting(request):
-    return render(request, 'users/account_setting.html')
+class SubscribeView(LoginRequiredMixin,AuthorRequiredMixin, generic.UpdateView):
+    model = User
+    form_class = SubscribeForm
+    template_name = 'users/subscribe.html'
 
-def bookmarks(request):
-    return render(request, 'users/bookmarks.html')
+    def get_success_url(self):
+        messages.success(self.request, "保存成功")
+        return reverse('users:subscribe', kwargs={'pk': self.request.user.pk})
 
-def like_videos(request):
-    return render(request, 'users/like_videos.html')
+class FeedbackView(LoginRequiredMixin, generic.CreateView):
+
+    model = Feedback
+    form_class = FeedbackForm
+    template_name = 'users/feedback.html'
+
+    @ratelimit(key='ip', rate='2/m')
+    def post(self, request, *args, **kwargs):
+        was_limited = getattr(request, 'limited', False)
+        if was_limited:
+            messages.warning(self.request, "操作太频繁了，请1分钟后再试")
+            return render(request, 'users/feedback.html', {'form': FeedbackForm()})
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, "提交成功")
+        return reverse('users:feedback')
+
+class CollectListView(generic.ListView):
+    model = User
+    template_name = 'users/collect_videos.html'
+    context_object_name = 'video_list'
+    paginate_by = 10
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CollectListView, self).get_context_data(**kwargs)
+        paginator = context.get('paginator')
+        page = context.get('page_obj')
+        page_data = get_page_data(paginator, page)
+        context.update(page_data)
+        return context
+    def get_queryset(self):
+        user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        videos = user.collected_videos.all()
+        return videos
+
+
+class LikeListView(generic.ListView):
+    model = User
+    template_name = 'users/like_videos.html'
+    context_object_name = 'video_list'
+    paginate_by = 10
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(LikeListView, self).get_context_data(**kwargs)
+        paginator = context.get('paginator')
+        page = context.get('page_obj')
+        page_data = get_page_data(paginator, page)
+        context.update(page_data)
+        return context
+
+    def get_queryset(self):
+        user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        videos = user.liked_videos.all()
+        return videos

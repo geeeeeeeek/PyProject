@@ -1,13 +1,12 @@
-from VideoProject.helpers import get_page_data, ajax_required
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import *
-from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.http import require_http_methods
-
+from django.core.mail import send_mass_mail
+import smtplib
+from helpers import get_page_data, ajax_required
 from .forms import CommentForm
 from .models import Video
 
@@ -16,6 +15,20 @@ from .models import Video
 def add_video(request):
     Video.objects.create(title='java', desc='我是java哈哈哈')
     return HttpResponse("success")
+
+# todo write for future
+def send_email(request):
+    try:
+        to_list = ['net19880504@126.com','net936@163.com','912750350@qq.com']
+        message = ('测试主题', '你好hello', 'net936@163.com', to_list)
+        # do not forget set password
+        send_mass_mail((message,))
+    except smtplib.SMTPException :
+        print("--> send fail")
+        return HttpResponse("fail")
+    else:
+        print("--> send success")
+        return HttpResponse("success")
 
 
 class IndexView(generic.ListView):
@@ -101,35 +114,4 @@ def collect(request):
     return JsonResponse({"code": 0, "collects": video.count_collecters(), "user_collected": video.user_collected(user)})
 
 
-def get_comments(request):
-    if not request.is_ajax():
-        return HttpResponseBadRequest()
-    page = request.GET.get('page')
-    page_size = request.GET.get('page_size')
-    video_id = request.GET.get('video_id')
-    video = get_object_or_404(Video, pk=video_id)
-    comments = video.comment_set.order_by('-timestamp').all()
-    comment_count = len(comments)
-
-    paginator = Paginator(comments, page_size)
-    try:
-        rows = paginator.page(page)
-    except PageNotAnInteger:
-        rows = paginator.page(1)
-    except EmptyPage:
-        rows = []
-
-    if len(rows) > 0:
-        code = 0
-        html = render_to_string(
-            "comment/comment_single.html", {"comments": rows})
-    else:
-        code = 1
-        html = ""
-
-    return JsonResponse({
-        "code":code,
-        "html": html,
-        "comment_count": comment_count
-    })
 

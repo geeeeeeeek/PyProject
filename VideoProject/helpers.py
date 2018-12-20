@@ -42,16 +42,6 @@ def ajax_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-def ajax_login_required(f):
-    def wrap(request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return f(request, *args, **kwargs)
-        return PermissionDenied ## or 401 == not authenticated
-    wrap.__doc__ = f.__doc__
-    wrap.__name__ = f.__name__
-    return wrap
-
-
 class AuthorRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()

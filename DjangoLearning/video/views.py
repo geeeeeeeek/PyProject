@@ -25,7 +25,7 @@ def account_setting(request):
     return render(request, 'video/account_setting.html')
 
 def bookmarks(request):
-    return render(request, 'video/bookmarks.html')
+    return render(request, 'video/collect_videos.html')
 
 def like_videos(request):
     return render(request, 'video/like_videos.html')

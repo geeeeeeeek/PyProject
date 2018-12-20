@@ -7,20 +7,7 @@
 <div class="v-settings">
     <div class="ui two column grid ">
         <div class="four wide column">
-            <div class="ui secondary vertical pointing menu">
-                <a class="active link item" href="{% url 'users:profile' user.pk %}">
-                    <i class="grey user icon"></i>
-                    <span class="v-nav-title">个人资料</span>
-                </a>
-                <a class="link item" href="{% url 'users:settings' %}">
-                    <i class="grey cog icon"></i>
-                    <span class="v-nav-title">设置</span>
-                </a>
-                <a class="link item" href="{% url 'users:account_setting' %}">
-                    <i class="grey bell icon"></i>
-                    <span class="v-nav-title">账号管理</span>
-                </a>
-            </div>
+            {% include "base/left_nav.html" %}
         </div>
         <div class="twelve wide column">
             <div class="v-settings-content">
@@ -35,6 +22,7 @@
                                 {% thumbnail user.avatar "200x200" crop="center" as im %}
                                   <img class="ui mini circular image" src="{{ im.url }}">
                                 {% empty %}
+                                <img class="ui mini circular  image" src="{% static 'img/img_default_avatar.png' %}">
                                 {% endthumbnail %}
                             </label>
                             {{form.avatar}}
@@ -87,7 +75,6 @@
 {% block javascript %}
 <script type="text/javascript">
 
-
 $(function(){
 
     $('.ui .dropdown').dropdown();
@@ -99,5 +86,6 @@ $(function(){
 });
 
 </script>
+<script src="{% static 'js/left_nav.js' %}"></script>
 {% endblock javascript %}
 

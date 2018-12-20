@@ -11,21 +11,23 @@
         </div>
         <div class="twelve wide column">
             <div class="v-settings-content">
-                <form novalidate class="ui form" method="post">
-                  {% csrf_token %}
-                    <div class="sixteen wide inline field v-form-field">
-                        <label>旧密码</label>
-                        {{ form.old_password}}
+                <form class="ui form" novalidate action="{% url 'users:feedback' %}" enctype="multipart/form-data" method="post" role="form">
+                    {% csrf_token %}
+                    <div class="sixteen wide  field ">
+                        <label>反馈与建议</label>
+                        <div class="field">
+                            {{ form.content }}
+                        </div>
                     </div>
-                    <div class="sixteen wide inline field v-form-field">
-                        <label>新密码</label>
-                        {{ form.new_password1}}
+
+                    <div class="sixteen wide  field ">
+                        <label>联系方式</label>
+                        <div class="field">
+                            {{ form.contact }}
+                        </div>
                     </div>
-                    <div class="sixteen wide inline field v-form-field">
-                        <label>确认密码</label>
-                        {{ form.new_password2}}
-                    </div>
-                  <button class="ui primary button" type="submit">保存</button>
+
+                    <button class="ui primary button" type="submit">提交</button>
 
                     {% include "base/form_errors.html" %}
                     {% include "base/form_messages.html" %}
@@ -42,7 +44,7 @@
 {% block javascript %}
 <script type="text/javascript">
 $('.ui .dropdown').dropdown();
+
 </script>
 <script src="{% static 'js/left_nav.js' %}"></script>
 {% endblock javascript %}
-

@@ -66,7 +66,14 @@ LOGIN_REDIRECT_URL = '/video/index'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
 MEDIA_URL = '/upload/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'net936@163.com'
+EMAIL_HOST_PASSWORD = ''
+
 
 TEMPLATES = [
     {

@@ -1,7 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.core.exceptions import ValidationError
+from .models import User, Feedback
 
-from .models import User
+
+def avatar_file_size(value):
+    limit = 2 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError('头像文件太大了，请限制在2M之内')
 
 
 class ProfileForm(forms.ModelForm):
@@ -11,7 +17,8 @@ class ProfileForm(forms.ModelForm):
                                    'min_length': '昵称不能多于20个字符',
                                },
                                widget=forms.TextInput())
-    avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class' : 'n'}))
+    avatar = forms.ImageField(required=False, validators=[avatar_file_size],
+                              widget=forms.FileInput(attrs={'class' : 'n'}))
     email = forms.EmailField(required=False,
                              error_messages={
                                  'invalid': '请输入有效的Email地址',
@@ -95,3 +102,23 @@ class ChangePwdForm(PasswordChangeForm):
     new_password2 = forms.CharField(error_messages={'required': '不能为空',},
         widget=forms.PasswordInput(attrs={'placeholder': '请输入确认密码'})
     )
+
+class SubscribeForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['subscribe']
+
+class FeedbackForm(forms.ModelForm):
+    content = forms.CharField(min_length=4,max_length=200,required=True,
+                               error_messages={
+                                   'min_length': '至少4个字符',
+                                   'max_length': '不能多于200个字符',
+                                   'required':'内容不能为空'
+                               },
+                               widget=forms.Textarea(attrs={'placeholder': '请输入内容'}))
+    contact = forms.CharField(required=False,
+                              widget=forms.TextInput(attrs={'placeholder':'请输入联系方式'}))
+    class Meta:
+        model = Feedback
+        fields = ['content', 'contact']
